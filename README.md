@@ -17,9 +17,9 @@ The server expect a mongoDB database named forge-rcdb running on localhost:27017
 
 You can change those settings in development.ini:
 
-[app:main]
-# ...
-mongo_uri = mongodb://localhost:27017/forge-rcdb
+    [app:main]
+    # ...
+    mongo_uri = mongodb://localhost:27017/forge-rcdb
 
 ## Database schema
 
