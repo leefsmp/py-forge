@@ -1,0 +1,12 @@
+{% extends "layout.jinja2" %} 
+
+{% block content%}
+    <div class="viewer" id="viewer">
+    </div>
+    <link rel="stylesheet" href="https://developer.api.autodesk.com/derivativeservice/v2/viewers/style.min.css?v=3.2.1"" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="https://developer.api.autodesk.com/derivativeservice/v2/viewers/viewer3D.min.js?v=3.2.1"></script>
+    <script type="text/javascript" src="{{request.static_url('py_forge:static/js/viewer.js')}}"></script>
+    <script type="text/javascript">
+        loadURN("{{model_info.model.urn}}")
+    </script>
+{% endblock content %}

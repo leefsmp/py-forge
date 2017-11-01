@@ -1,0 +1,62 @@
+
+body {
+    margin: 0;
+}
+
+.logo {
+    position: absolute;
+    z-index: 10;
+    left: 20px;
+    top: 20px;
+}
+
+.content {
+    margin: 0 0 0 24px;
+    position: relative;
+    top: 48px;
+}
+
+.list {
+    border: 1px solid grey;
+    overflow: scroll;
+    max-width: 90%;
+    padding: 10px;
+    width: 500px;
+}
+
+.list-item {
+    border: 1px solid grey;
+    text-decoration: none;
+    background: #ffe39f;
+    display: list-item;
+    margin: 0 0 6px 0;
+    list-style: none;
+    cursor: pointer;
+    padding: 10px;
+    height: 30px;
+    color: black;
+
+    transition-property: background;
+    transition-timing-function: ease;
+    transition-duration: 0.85s;
+    transition-delay: 0.0s;
+}
+
+.list-item:hover {
+    background: #ffb600;
+}
+
+.list-item > img {
+    margin: 0 12px 0 0;
+    position: relative;
+    height: 40px;
+    float: left;
+    top: -5px;
+}
+
+.viewer {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+}
+

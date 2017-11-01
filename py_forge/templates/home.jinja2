@@ -1,0 +1,17 @@
+{% extends "layout.jinja2" %} 
+
+{% block content%}
+<div class="content">
+    <h2>
+        {{title}}
+    </h2>
+    <div class="list">
+        {% for model in models %}
+            <a class="list-item" href="/viewer?id={{model._id}}">
+                <img src="{{request.static_url('py_forge:static/img/forge.png')}}" alt="Forge">
+                {{model.name}}
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

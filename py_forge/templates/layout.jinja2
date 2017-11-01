@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+  <head>
+    <meta name="viewport" content="width=device-width, height=device-height, minimal-ui, minimum-scale=1.0, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="{{request.static_url('py_forge:static/css/theme.css')}}" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="shortcut icon" href="{{request.static_url('py_forge:static/img/forge.png')}}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Py-Forge</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+      <img class="logo" src="{{request.static_url('py_forge:static/img/adsk-forge.png')}}" alt="Forge">
+      <div>
+        {% block content %}
+
+        {% endblock content %}
+      </div>
+  </body>
+</html>
