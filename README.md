@@ -11,15 +11,39 @@ Just a Python web application using Autodesk Forge Web APIs
 
     * MongoDB
 
+## Database setup
+
+The server expect a mongoDB database named forge-rcdb running on localhost:27017
+
+You can change those settings in development.ini:
+
+[app:main]
+# ...
+mongo_uri = mongodb://localhost:27017/forge-rcdb
+
+## Database schema
+
+Populate your database with a collection named "gallery.models" with at least one model pointing to a translated URN.
+
+    {
+        "_id" : ObjectId("59f9aeedbcd28f9df393f760"),
+        "name" : "Engine",
+        "model" : {
+            "urn" : "dXhaghj....(urn of translated model from Forge)"
+        }
+    }
+
+See [Prepare a File for the Viewer](https://developer.autodesk.com/en/docs/model-derivative/v2/tutorials/prepare-file-for-viewer)
+
 ## Project Setup
 
-    * cd <directory containing this project>
+    * > cd <directory containing this project>
 
-    * python -m venv .
+    * > python -m venv .
 
-    * ./bin/pip install -e .
+    * > ./bin/pip install -e .
 
-    * ./bin/pserve development.ini --reload
+    * > ./bin/pserve development.ini --reload
 
 ## Live Demo
 

@@ -11,7 +11,9 @@
   </head>
 
   <body>
-      <img class="logo" src="{{request.static_url('py_forge:static/img/adsk-forge.png')}}" alt="Forge">
+      <a href="/">
+        <img class="logo" src="{{request.static_url('py_forge:static/img/adsk-forge.png')}}" alt="Forge">
+      </a>
       <div>
         {% block content %}
 
