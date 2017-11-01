@@ -3,7 +3,7 @@
 
 ## Description
 
-Just a Python web application using [Pyramid](https://trypyramid.com) and [Autodesk Forge Web APIs](https://developer.autodesk.com)
+A Python web application using [Pyramid](https://trypyramid.com) and [Autodesk Forge Web APIs](https://developer.autodesk.com)
 
 ## Prerequisites
 
