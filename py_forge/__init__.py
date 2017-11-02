@@ -15,7 +15,7 @@ def main(global_config, **settings):
 
     config.add_static_view(
         'static', 'static',
-        cache_max_age=settings['cache_max_age'])
+        cache_max_age=int(settings['cache_max_age']))
 
     db_url = urlparse(settings['mongo_uri'])
 

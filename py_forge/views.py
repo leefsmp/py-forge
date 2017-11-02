@@ -66,8 +66,10 @@ def get_token(client_id, client_secret):
 @view_config(route_name='forge-token', renderer='json')
 def forge_token(request):
 
-    client_secret = os.environ['FORGE_DEV_CLIENT_SECRET']
-    client_id = os.environ['FORGE_DEV_CLIENT_ID']
+    settings = request.registry.settings
+
+    client_secret = os.environ[settings['forge_env_client_secret']]
+    client_id = os.environ[settings['forge_env_client_id']]
 
     token = get_token(client_id, client_secret)
 
