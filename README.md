@@ -3,7 +3,7 @@
 
 ## Description
 
-A Python web application using [Pyramid](https://trypyramid.com) and [Autodesk Forge Web APIs](https://developer.autodesk.com)
+A Python Web Application using [Pyramid](https://trypyramid.com) and [Autodesk Forge Web APIs](https://developer.autodesk.com)
 
 ## Prerequisites
 
@@ -36,6 +36,12 @@ Populate your database with a collection named "gallery.models" with at least on
 See [Prepare a File for the Viewer](https://developer.autodesk.com/en/docs/model-derivative/v2/tutorials/prepare-file-for-viewer)
 
 ## Project Setup
+
+    * define following system variables initialized with your (Forge credentials)[https://developer.autodesk.com/en/docs/oauth/v2/tutorials/create-app/]:
+
+        FORGE_DEV_CLIENT_ID
+
+        FORGE_DEV_CLIENT_SECRET
 
     * > cd <directory containing this project>
 
