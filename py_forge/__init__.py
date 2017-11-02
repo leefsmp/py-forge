@@ -3,13 +3,19 @@ from urllib.parse import urlparse
 from pymongo import MongoClient
 from gridfs import GridFS
 
+#////////////////////////////////////////////////////////////////////
+# Server main
+#
+#////////////////////////////////////////////////////////////////////
 def main(global_config, **settings):
 
     config = Configurator(settings=settings)
 
     config.include('pyramid_jinja2')
 
-    config.add_static_view('static', 'static', cache_max_age=0)
+    config.add_static_view(
+        'static', 'static',
+        cache_max_age=settings['cache_max_age'])
 
     db_url = urlparse(settings['mongo_uri'])
 
@@ -30,6 +36,7 @@ def main(global_config, **settings):
     config.add_request_method(add_db, 'db', reify=True)
     config.add_request_method(add_fs, 'fs', reify=True)
 
+    # Routes definition
     config.add_route('forge-token', '/forge/token')
     config.add_route('viewer', '/viewer')
     config.add_route('home', '/')

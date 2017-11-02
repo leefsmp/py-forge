@@ -72,32 +72,38 @@ function getViewableItems (doc, roles) {
 //
 //
 /////////////////////////////////////////////////////////
-function getAccessToken(callback) {
+function getAccessTokenFactory(tokenUrl) {
 
-  var xhttp = new XMLHttpRequest()
+  return function (callback) {
 
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
+      var xhttp = new XMLHttpRequest()
 
-      var res = JSON.parse(this.responseText)
-      callback(res.access_token, res.expires_in)
-    }
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var res = JSON.parse(this.responseText)
+          callback(res.access_token, res.expires_in)
+        }
+      }
+
+      xhttp.open("GET", tokenUrl, true)
+
+      xhttp.setRequestHeader(
+        "Content-type",
+        "application/json")
+
+      xhttp.send()
   }
-
-  xhttp.open("GET", '/forge/token', true)
-  xhttp.setRequestHeader("Content-type", "application/json")
-  xhttp.send()
 }
 
 /////////////////////////////////////////////////////////
 // Initialize Environment
 //
 /////////////////////////////////////////////////////////
-function loadURN(urn) {
+function loadURN(tokenUrl, urn) {
 
     initialize({
 
-      getAccessToken: getAccessToken,
+      getAccessToken: getAccessTokenFactory(tokenUrl),
       env: "AutodeskProduction"
 
     }).then(function() {
@@ -110,7 +116,9 @@ function loadURN(urn) {
 
         var viewerDiv = document.getElementById("viewer")
 
-        var viewer = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv)
+        var viewer =
+            new Autodesk.Viewing.Private.GuiViewer3D(
+                viewerDiv)
 
         viewer.start(path)
       })
