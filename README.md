@@ -37,19 +37,19 @@ See [Prepare a File for the Viewer](https://developer.autodesk.com/en/docs/model
 
 ## Project Setup
 
-    * define following system variables initialized with your (Forge credentials)[https://developer.autodesk.com/en/docs/oauth/v2/tutorials/create-app/]:
+* define following system variables initialized with your (Forge credentials)[https://developer.autodesk.com/en/docs/oauth/v2/tutorials/create-app/]:
 
-        FORGE_DEV_CLIENT_ID
+    FORGE_DEV_CLIENT_ID
 
-        FORGE_DEV_CLIENT_SECRET
+    FORGE_DEV_CLIENT_SECRET
 
-    * > cd <directory containing this project>
+* > cd <directory containing this project>
 
-    * > python -m venv .
+* > python -m venv .
 
-    * > ./bin/pip install -e .
+* > ./bin/pip install -e .
 
-    * > ./bin/pserve development.ini --reload
+* > ./bin/pserve development.ini --reload
 
 ## Live Demo
 
