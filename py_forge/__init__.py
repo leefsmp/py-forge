@@ -37,6 +37,7 @@ def main(global_config, **settings):
     config.add_request_method(add_fs, 'fs', reify=True)
 
     # Routes definition
+    config.add_route('forge-thumbnail', '/forge/thumbnail')
     config.add_route('forge-token', '/forge/token')
     config.add_route('viewer', '/viewer')
     config.add_route('not_found', '/404')

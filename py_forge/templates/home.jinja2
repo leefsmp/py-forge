@@ -14,7 +14,9 @@
     <div class="list">
         {% for model in models %}
             <a class="list-item" href="/viewer?id={{model._id}}">
-                <img src="{{request.static_url('py_forge:static/img/forge.png')}}" alt="Forge">
+                <img src="/forge/thumbnail?id={{model._id}}"
+                     alt=""
+                 >
                 {{model.name}}
             </a>
         {% endfor %}
