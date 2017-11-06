@@ -1,22 +1,58 @@
 
 body {
+    overflow: hidden;
+    height: 100vh;
     margin: 0;
+}
+
+.navbar {
+    border-bottom: 1px solid #dea02c;
+    position: absolute;
+    background: white;
+    height: 52px;
+    width: 100%;
+    left: 0;
+    top: 0;
 }
 
 .logo {
     position: absolute;
     z-index: 10;
-    left: 20px;
-    top: 20px;
+    left: 10px;
+    top: 10px;
+}
+
+.app-container {
+    height: calc(100% - 54px);
 }
 
 .content {
     margin: 0 0 0 24px;
     position: relative;
+    height: 100%;
     top: 48px;
 }
 
+.title {
+    color: #e6a72e;
+    height: 72px;
+}
+
+.title > h2 {
+    float: left;
+}
+
+.title > a {
+    position: relative;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #e6a72e;
+    float: left;
+    top: 21px;
+}
+
 .list {
+    max-height: calc(100% - 100px);
     border: 1px solid grey;
     overflow: scroll;
     max-width: 90%;
@@ -54,9 +90,31 @@ body {
     top: -5px;
 }
 
-.viewer {
-    position: relative;
-    height: 100vh;
-    width: 100vw;
+.background {
+    background-position: center center;
+    height: calc(100% - 53px);
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    top: 53px;
+    right: 0;
 }
 
+.viewer {
+    height: calc(100vh - 53px);
+    position: relative;
+    width: 100vw;
+    top: 53px;
+}
+
+.not-found-msg {
+    background: whitesmoke;
+    position: relative;
+    text-align: center;
+    border-radius: 4px;
+    opacity: 0.7;
+    width: 400px;
+    height: 94px;
+    left: 20%;
+    top: 50px;
+}

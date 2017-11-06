@@ -39,6 +39,7 @@ def main(global_config, **settings):
     # Routes definition
     config.add_route('forge-token', '/forge/token')
     config.add_route('viewer', '/viewer')
+    config.add_route('not_found', '/404')
     config.add_route('home', '/')
 
     config.scan()

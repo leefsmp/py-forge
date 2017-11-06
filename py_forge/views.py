@@ -1,6 +1,9 @@
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from pyramid.view import view_config
 from bson.objectid import ObjectId
+from pyramid.url import route_url
 import requests
+import pyramid
 import os
 
 #////////////////////////////////////////////////////////////////////
@@ -23,18 +26,36 @@ def home_view(request):
 #////////////////////////////////////////////////////////////////////
 @view_config(route_name='viewer', renderer='templates/viewer.jinja2')
 def viewer_view(request):
+    try:
+        model_id = request.params['id']
 
-    model_id = request.params['id']
+        model_info = request.db['gallery.models'].find_one({
+            '_id': ObjectId(model_id)
+        })
 
-    model_info = request.db['gallery.models'].find_one({
-        '_id': ObjectId(model_id)
-    })
+        if model_info is None:
+            return HTTPFound(location='/404')
+
+        return {
+            'token_url': '/forge/token',
+            'model_info': model_info
+        }
+
+    except:
+
+        return HTTPFound(location='/404')
+
+
+# ////////////////////////////////////////////////////////////////////
+# /viewer route handler
+#
+# ////////////////////////////////////////////////////////////////////
+@view_config(route_name='not_found', renderer='templates/404.jinja2')
+def not_found_view(request):
 
     return {
-        'token_url': '/forge/token',
-        'model_info': model_info
+        'requested_url': '/404'
     }
-
 
 #////////////////////////////////////////////////////////////////////
 # Get Forge token

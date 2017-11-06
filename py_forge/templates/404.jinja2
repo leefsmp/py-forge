@@ -1,0 +1,14 @@
+{% extends "layout.jinja2" %} 
+
+{% block content%}
+    <img src="{{request.static_url('py_forge:static/img/background.jpg')}}" class="background" alt="background">
+    <div class="content">
+        <div class="not-found-msg">
+        <br>
+        The page you are looking for doesn't exist ... :(
+        <br>
+        <br>
+        <a href="/">Home</a>
+        </div>
+    </div>
+{% endblock content %}

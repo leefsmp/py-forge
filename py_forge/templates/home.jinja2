@@ -1,10 +1,16 @@
 {% extends "layout.jinja2" %} 
 
 {% block content%}
+<img src="{{request.static_url('py_forge:static/img/background.jpg')}}" class="background" alt="background">
 <div class="content">
-    <h2>
-        {{title}}
-    </h2>
+    <div class="title">
+        <h2>
+            {{title}} - &nbsp;
+        </h2>
+         <a href="https://forge-rcdb.autodesk.io/gallery" target="_blank">
+            Upload your own ...
+         </a>
+    </div>
     <div class="list">
         {% for model in models %}
             <a class="list-item" href="/viewer?id={{model._id}}">
