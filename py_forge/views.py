@@ -1,7 +1,8 @@
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from pyramid.response import Response
 from pyramid.view import view_config
 from bson.objectid import ObjectId
+from .Memo import Memo
 import requests
 import os
 
@@ -12,7 +13,7 @@ import os
 @view_config(route_name='home', renderer='templates/home.jinja2')
 def home_view(request):
 
-    models = request.db['gallery.models'].find()
+    models = request.db['gallery.models'].find().sort('name', 1)
 
     return {
         'title': 'Models',
@@ -48,7 +49,7 @@ def viewer_view(request):
 
 
 # ////////////////////////////////////////////////////////////////////
-# /viewer route handler
+# /viewer?id route handler
 #
 # ////////////////////////////////////////////////////////////////////
 @view_config(route_name='not_found', renderer='templates/404.jinja2')
@@ -59,18 +60,24 @@ def not_found_view(request):
     }
 
 #////////////////////////////////////////////////////////////////////
+# Get Forge credentials from settings
+#
+#////////////////////////////////////////////////////////////////////
+def getCredentials (settings) :
+
+    return {
+        'id': os.environ[settings['forge_env_client_id']],
+        'secret': os.environ[settings['forge_env_client_secret']]
+    }
+
+#////////////////////////////////////////////////////////////////////
 # Get Forge token
 #
 #////////////////////////////////////////////////////////////////////
-def get_token(request):
+def get_token(client_id, client_secret):
 
     base_url = 'https://developer.api.autodesk.com'
     url_authenticate = base_url + '/authentication/v1/authenticate'
-
-    settings = request.registry.settings
-
-    client_secret = os.environ[settings['forge_env_client_secret']]
-    client_id = os.environ[settings['forge_env_client_id']]
 
     data = {
         'grant_type': 'client_credentials',
@@ -87,16 +94,27 @@ def get_token(request):
     return None
 
 #////////////////////////////////////////////////////////////////////
+# Caches current token for delay specified by timeout (in seconds)
+#
+#////////////////////////////////////////////////////////////////////
+@Memo(timeout=3580)
+def get_tokenMemo(client_id, client_secret):
+
+    return get_token(client_id, client_secret)
+
+#////////////////////////////////////////////////////////////////////
 # /forge/token route
 #
 #////////////////////////////////////////////////////////////////////
 @view_config(route_name='forge-token', renderer='json')
 def forge_token(request):
 
-    return get_token (request)
+    credentials = getCredentials(request.registry.settings)
+
+    return get_token (credentials['id'], credentials['secret'])
 
 #////////////////////////////////////////////////////////////////////
-# Get thumbnail
+# Get Forge thumbnail
 #
 #////////////////////////////////////////////////////////////////////
 def get_thumbnail(token, urn):
@@ -119,7 +137,7 @@ def get_thumbnail(token, urn):
     return None
 
 # ////////////////////////////////////////////////////////////////////
-# /forge/token route
+# /forge/thumbnail?id route
 #
 # ////////////////////////////////////////////////////////////////////
 @view_config(route_name='forge-thumbnail')
@@ -133,9 +151,14 @@ def forge_thumbnail(request):
             '_id': ObjectId(model_id)
         })
 
+        if model_info is None:
+            return HTTPNotFound()
+
         urn = model_info['model']['urn']
 
-        token = get_token(request)
+        credentials = getCredentials(request.registry.settings)
+
+        token = get_tokenMemo(credentials['id'], credentials['secret'])
 
         thumbnail = get_thumbnail(token, urn)
 
@@ -143,4 +166,5 @@ def forge_thumbnail(request):
 
     except Exception as ex:
 
-        return ex
+        return HTTPNotFound()
+
